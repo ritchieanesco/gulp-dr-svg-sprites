@@ -1,13 +1,13 @@
 {
-  "name": "gulp-<%= pluginName %>",
+  "name": "gulp-dr-svg-sprites",
   "version": "0.0.0",
-  "description": "My <%= superb %> gulp plugin",
+  "description": "Gulp port of grunt-dr-svg-sprites",
   "license": "MIT",
-  "repository": "<%= githubUsername %>/gulp-<%= pluginName %>",
+  "repository": "ritchieanesco/gulp-dr-svg-sprites",
   "author": {
-    "name": "<%= name %>",
-    "email": "<%= email %>",
-    "url": "<%= humanizedWebsite %>"
+    "name": "Ritchie Anesco",
+    "email": "info@ritchieanesco.com",
+    "url": ""
   },
   "engines": {
     "node": ">=0.10.0"

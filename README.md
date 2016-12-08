@@ -1,12 +1,12 @@
-# gulp-<%= pluginName %> [![Build Status](https://travis-ci.org/<%= githubUsername %>/gulp-<%= pluginName %>.svg?branch=master)](https://travis-ci.org/<%= githubUsername %>/gulp-<%= pluginName %>)
+# gulp-dr-svg-sprites [![Build Status](https://travis-ci.org/ritchieanesco/gulp-dr-svg-sprites.svg?branch=master)](https://travis-ci.org/ritchieanesco/gulp-dr-svg-sprites)
 
-> My <%= superb %> gulp plugin
+> Port of the popular grunt-dr-svg-sprites plugin
 
 
 ## Install
 
 ```
-$ npm install --save-dev gulp-<%= pluginName %>
+$ npm install --save-dev gulp-dr-svg-sprites
 ```
 
 
@@ -14,11 +14,11 @@ $ npm install --save-dev gulp-<%= pluginName %>
 
 ```js
 const gulp = require('gulp');
-const <%= camelPluginName %> = require('gulp-<%= pluginName %>');
+const drsvgsprites = require('gulp-dr-svg-sprites');
 
 gulp.task('default', () => {
-	gulp.src('src/file.ext')
-		.pipe(<%= camelPluginName %>())
+	gulp.src('src')
+		.pipe(drsvgsprites())
 		.pipe(gulp.dest('dist'))
 );
 ```
@@ -26,7 +26,7 @@ gulp.task('default', () => {
 
 ## API
 
-### <%= camelPluginName %>([options])
+### drsvgsprites([options])
 
 #### options
 
@@ -40,4 +40,4 @@ Lorem ipsum.
 
 ## License
 
-MIT © [<%= name %>](<%= website %>)
+MIT © [Ritchie Anesco](http://www.ritchieanesco.com)
