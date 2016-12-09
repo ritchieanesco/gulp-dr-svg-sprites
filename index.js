@@ -1,31 +1,35 @@
 'use strict';
-var gutil = require('gulp-util');
-var through = require('through2');
-var someModule = require('some-module');
+const gutil = require('gulp-util');
+const through = require('through2');
+const svg = require('dr-svg-sprites');
+const PLUGIN_NAME = 'gulp-dr-svg-sprites';
 
-module.exports = function(opts) {
+module.exports = opts => {
+
     opts = opts || {};
 
-    return through.obj(function(file, enc, cb) {
+    return through.obj((file, enc, cb) => {
         if (file.isNull()) {
           cb(null, file);
           return;
         }
 
         if (file.isStream()) {
-          cb(new gutil.PluginError('gulp-dr-svg-sprites',
+          cb(new gutil.PluginError(PLUGIN_NAME,
           'Streaming not supported'));
           return;
         }
 
         try {
-          file.contents = new Buffer(someModule(file.contents.toString(),
-            opts));
+          file.contents = new Buffer(svg(opts, () => {
+              console.log('SVG GENERATION COMPLETE');
+              done();
+            }));
           this.push(file);
         } catch (err) {
-          this.emit('error', new gutil.PluginError('gulp-dr-svg-sprites', err));
+          this.emit('error', new gutil.PluginError(PLUGIN_NAME, err));
         }
 
-        cb();
+        cb(null, file);
       });
   };
