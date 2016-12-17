@@ -1,11 +1,11 @@
-'use strict';
+/*global module, Buffer */
 const gutil = require('gulp-util');
 const through = require('through2');
 const _ = require('lodash');
 const svg = require('dr-svg-sprites');
+const fs = require('fs');
 const PLUGIN_NAME = 'gulp-dr-svg-sprites';
-
-var defaults = {
+const defaults = {
     spriteElementPath: 'svgs',
     spritePath: 'images',
     cssPath: 'styles',
@@ -22,11 +22,17 @@ var defaults = {
     unit: 10
   };
 
-module.exports = opts => {
+module.exports = function(opts) {
 
-    config = _.merge(_.cloneDeep(defaults), opts || {});
+    let config = _.merge(_.cloneDeep(defaults), opts || {});
 
-    return through.obj((file, enc, cb) => {
+    if (config.template) {
+      config.template = fs.readFileSync(config.template, 'utf-8');
+    }
+
+    return through.obj(function(file, enc, cb) {
+
+        let self;
 
         if (file.isNull()) {
           cb(null, file);
@@ -40,12 +46,11 @@ module.exports = opts => {
         }
 
         try {
-
-          file.contents = new Buffer(svg(config, () => {
+          self = this;
+          file.contents = new Buffer(svg(config, function() {
               console.log('SVG GENERATION COMPLETE');
-              done();
+              self.push(file);
             }));
-          this.push(file);
         } catch (err) {
           this.emit('error', new gutil.PluginError(PLUGIN_NAME, err));
         }
